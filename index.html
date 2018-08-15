@@ -3,12 +3,18 @@
 	<meta charset="utf-8">
 	<title>Christina Foran</title>
 	<link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet">
+	<link rel="stylesheet" href="https://s3.amazonaws.com/icomoon.io/114779/Socicon/style.css?9ukd8d">
+
 	<style type="text/css">
-		img {
+		.glamourshot {
 			border-radius: 50%;
 			display: block;
-    		margin-left: auto;
-    		margin-right: auto;
+			margin-left: auto;
+			margin-right: auto;
+			border-width: 1px;
+			border-color: #cfcfcf;
+			border-style: solid;
+			padding: 6px;
 		}
 		body {
 			border: 25px; 
@@ -27,19 +33,55 @@
 			top: 50%;
 			left: 50%;
 			-ms-transform: translate(-50%, -50%);
-    		transform: translate(-50%, -50%);
-    		text-align: center;
-    		font-family: 'Fira Mono', monospace;
+			transform: translate(-50%, -50%);
+			text-align: center;
+			font-family: 'Fira Mono', monospace;
+		}
+
+		a:link {
+			color: #009688;
+		}
+
+		a:visited {
+			color: #607d8b;
+		}
+
+		a:hover {
+			color: #673ab7;
+		}
+
+		a:active {
+			color: #673ab7;
+		}
+
+		a.social:link {
+			text-decoration: none;
+		}
+
+		a.social:visited {
+			text-decoration: none;
+		}
+
+		a.social:hover {
+			text-decoration: none;
+		}
+
+		a.social:active {
+			text-decoration: none;
 		}
 
 	</style>
 </head>
 <body>
 	<div class="container">
-		<img src="images/smile.jpg" width="125" height="125" alt="photo of Christina">
+		<img class="glamourshot" src="images/smile.jpg" width="125" height="125" alt="photo of Christina">
 		<h1>Christina Foran</h1>
 		<h2>eduDeveloper</h2>
-		<p>
+		<nav>
+			<a class="socicon-linkedin social" href="https://www.linkedin.com/in/cmforan/" title="Connect with me on LinkedIn" target="_blank"></a> &nbsp; 
+			<a class="socicon-twitter social" href="https://twitter.com/eduDevCF" title="Follow me on Twitter" target="_blank"></a> &nbsp; 
+			<a class="socicon-github social" href="https://github.com/edudevcf" title="Check out my GitHub" target="_blank"></a>
+		</nav>
 	</div>
 </body>
 </html>
