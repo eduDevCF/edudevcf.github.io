@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tada🎉</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    #actInput {
+      background-image: url('searchicon.png');
+      background-position: 10px 12px;
+      background-repeat: no-repeat;
+      width: 100%;
+      font-size: 16px;
+      padding: 12px 20px 12px 40px;
+      border: 1px solid #ddd;
+      margin-bottom: 12px;
+    }
+    
+    #myUL {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    #myUL li {
+      border: 1px solid #ddd;
+      margin-top: -1px; /* Prevent double borders */
+      background-color: #f6f6f6;
+      padding: 12px;
+      text-decoration: none;
+      font-size: 18px;
+      color: black;
+      display: block
+    }
+    
+    #myUL li a:hover:not(.header) {
+      background-color: #eee;
+    }
+    </style>
+</head>
+<body>
+  <h1>Tada</h1>
+
+  <input type="text" id="actInput" onkeyup="filterList()" placeholder="How did you take action today?" title="Type an activity to search">
+
+  <ul id="myUL">
+    <li><span class="w3-badge w3-green">+</span> <a href="#">Laundry</a> </li>
+    <li><span class="w3-badge w3-green">1</span> <a href="#">Dishes</a> </li>
+
+    <li><span class="w3-badge w3-green">+</span> <a href="#">Litterbox</a> </li>
+    <li><span class="w3-badge w3-green">+</span> <a href="#">Exercise</a> </li>
+
+    <li><span class="w3-badge w3-green">1</span> <a href="#">Cook</a> </li>
+    <li><span class="w3-badge w3-green">2</span> <a href="#">Floss</a> </li>
+    <li><span class="w3-badge w3-green">6</span> <a href="#">Brush Teeth</a> </li>
+  </ul>
+  <div>
+    <p id="noMatchesMsg" style="display:none;"><span id="inputTxt">Hmm, that activity</span> cound not be found.</p>
+    <button id="newActivity" onclick="addNewActivity()">Add new activity</button>
+  </div>
+
+  <script src="./tada.js"></script>
+  <script>
+  function filterList() {
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById("actInput");
+      filter = input.value.toUpperCase();
+      ul = document.getElementById("myUL");
+      li = ul.getElementsByTagName("li");
+      for (i = 0; i < li.length; i++) {
+          a = li[i].getElementsByTagName("a")[0];
+          txtValue = a.textContent || a.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              li[i].style.display = "";
+          } else {
+              li[i].style.display = "none";
+          }
+      }
+      var noMatchesFound = detectNoMatch(li);
+      if (noMatchesFound){
+        var pMsg = document.getElementById("noMatchesMsg").style.display = "";
+        var actSpan = document.getElementById("inputTxt").innerText = '"' + input.value + '"';
+      }
+      if (input.value == ""){
+        var pMsg = document.getElementById("noMatchesMsg").style.display = "none";
+      }
+  }
+
+  function detectNoMatch(collection){
+    var listLength = collection.length;
+    var displayNoneCount = 0;
+    for (i=0; i < listLength; i++) {
+      if (collection[i].style.display == "none"){
+        displayNoneCount++;
+      }
+    }
+    if (displayNoneCount == listLength){
+      return true;
+    }
+    return false;
+  }
+
+  function addNewActivity(){
+    input = document.getElementById("actInput").value;
+    var newActObj = addActivity(input);
+    prependLI(newActObj);
+
+  }
+
+  function prependLI(actObj){
+    document.getElementById("actInput").value = "";
+    filterList();
+    
+    var ul = document.getElementById("myUL");
+    var li = document.createElement("li");
+    li.innerHTML = `<span class="w3-badge w3-green">+</span> <a href="#">${actObj.name}</a>`;
+    li.style.display = "";
+    ul.insertBefore(li, ul.firstChild);
+  }
+
+  </script>
+
+
+
+</body>
+</html>

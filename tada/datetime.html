@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Date Time Experimentation</title>
+</head>
+<body>
+  <input type="datetime-local">
+  <script>
+    window.addEventListener('DOMContentLoaded', (e) => {
+      console.log('DOM fully loaded and parsed');
+      var dateControl = document.querySelector('input[type="datetime-local"]');
+      dateControl.value = formatDateValue();
+    });
+    
+    // Format Date to match input type datetime-local format
+    function formatDateValue(){
+      var dt = new Date();
+      var dtString = "";
+      // add 4 digit year and delimiter
+      dtString += dt.getFullYear().toString() + "-";
+      // add 2 digit month with leading zeros and delimiter
+      dtString += dt.getMonth().toString().padStart(2,'0') + "-";
+      // add 2 digit date with leading zeros and delimiter
+      dtString += dt.getDate().toString().padStart(2,'0') + "T";
+      // add hours in military time with leading zeros and delimiter
+      dtString += dt.getHours().toString().padStart(2,'0') + ":";
+      // add minutes with leading zeros
+      dtString += dt.getMinutes().toString().padStart(2,'0');
+      console.log(dtString);
+      return dtString;
+    }
+
+    // The datetime-local input does not accept ISO TZ offsets in its formatting
+    // function formatDateValueINVALID(){
+    //   var dt = new Date();
+    //   var dtOffset = dt.toString().split(" ")[5];
+    //   var dtJSON = dt.toJSON();
+    //   var dtOffsetHr = dtOffset.slice(3,6);
+    //   console.log(dtOffsetHr);
+    //   var dtOffsetMin = dtOffset.slice(-2);
+    //   var dtValue = dtJSON.slice(0,-1) + dtOffsetHr + ":" + dtOffsetMin;
+    //   return dtValue;
+    // }
+
+
+  </script>
+</body>
+</html>

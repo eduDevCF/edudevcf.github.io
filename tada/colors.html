@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Colors</title>
+  <style>
+    html, body {
+      margin: 0;
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      padding: 50px;
+    }
+
+  </style>
+</head>
+<body>
+  <ul id="container">
+  </ul>
+
+  <script>
+    // var colors =  ["#3333cc", "#339966", "#3333ff",  "#0066cc", "#0099cc","#0033cc", "#009933", "#009999", "#3366ff", "#0066ff", "#6666ff", "#6600cc", "#9900cc", "#cc00cc", "#ff33cc", "#cc0099", "#990099", "#cc0066", "#ff5050"];
+//        var colors =  ["#3333cc", "#339966", "#3333ff",  "#0066cc", "#0099cc","#0033cc", "#009999","#0066ff", "#6666ff", "#6600cc", "#9900cc"];
+
+    window.addEventListener('DOMContentLoaded', (e) => {
+      console.log('DOM fully loaded and parsed');
+      var colors =  ["#3333cc", "#3333ff", "#0099cc", "#009999","#0066ff", "#6666ff", "#6600cc", "#9900cc"];
+      var randomColors = randomizeColors(colors);
+      randomColors.forEach(createListItem)
+    });
+
+    function randomizeColors(colorList) {
+      var randomColors = [];
+      while (colorList.length > 0){
+        var idx = Math.floor(Math.random() * colorList.length);
+        randomColors.push(colorList[idx]);
+        colorList.splice(idx, 1);
+      }
+      return randomColors;
+    }
+
+    function createListItem(color){
+      var ul = document.getElementById("container");
+      var li = document.createElement("li");
+      li.id = color.slice(1);
+      li.style.backgroundColor = color;
+      li.innerText = color;
+      ul.appendChild(li);
+    }
+
+  
+  </script>
+</body>
+</html>
