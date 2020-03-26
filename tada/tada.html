@@ -42,6 +42,37 @@
     #myUL li a:hover:not(.header) {
       background-color: #eee;
     }
+
+    .button {
+      border-radius: 100%; 
+      width: 40px; 
+      height: 40px;
+      background-color: #4CAF50; /* Green */
+      border: none;
+      color: white;
+      padding: 5px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 5px 20px 5px 10px;
+      cursor: pointer;
+    }
+
+
+    .button:hover .count{
+      display: none;
+    }
+
+    .button:hover:before {
+      content:"+"; 
+      font-size: 24px;
+      line-height: 16px;
+      display: inline-block;
+      padding: 0px;
+      font-weight: bold;
+    }
+
     </style>
 </head>
 <body>
@@ -50,15 +81,14 @@
   <input type="text" id="actInput" onkeyup="filterList()" placeholder="How did you take action today?" title="Type an activity to search">
 
   <ul id="myUL">
-    <li><span class="w3-badge w3-green">+</span> <a href="#">Laundry</a> </li>
-    <li><span class="w3-badge w3-green">1</span> <a href="#">Dishes</a> </li>
+    <li><button id="1585165939585" class="button" onclick="incrementCount(this)"><span class="count">5</span></button> <a href="#">Laundry</a> </li>
+    <li><button class="button"><span class="count">+</span></button> <a href="#">Dishes</a> </li>
 
-    <li><span class="w3-badge w3-green">+</span> <a href="#">Litterbox</a> </li>
-    <li><span class="w3-badge w3-green">+</span> <a href="#">Exercise</a> </li>
+    <li><button class="button"><span class="count">25</span></button> <a href="#">Litterbox</a> </li>
+    <li><button class="button"><span class="count">+</span></button> <a href="#">Exercise</a> </li>
 
-    <li><span class="w3-badge w3-green">1</span> <a href="#">Cook</a> </li>
-    <li><span class="w3-badge w3-green">2</span> <a href="#">Floss</a> </li>
-    <li><span class="w3-badge w3-green">6</span> <a href="#">Brush Teeth</a> </li>
+    <li><button class="button"><span class="count">420</span></button> <a href="#">Cook</a> </li>
+
   </ul>
   <div>
     <p id="noMatchesMsg" style="display:none;"><span id="inputTxt">Hmm, that activity</span> cound not be found.</p>
@@ -107,21 +137,44 @@
   }
 
   function addNewActivity(){
-    input = document.getElementById("actInput").value;
-    var newActObj = addActivity(input);
-    prependLI(newActObj);
+    var input = document.getElementById("actInput");
+    var activityText = input.value;
+    if (activityText == ""){
+      input.focus();
+      input.placeholder = "Type your activity here to search or add"
+    }else{
+      var newActObj = addActivity(activityText);
+      prependLI(newActObj);
+    }
+
 
   }
 
   function prependLI(actObj){
     document.getElementById("actInput").value = "";
     filterList();
-    
+
     var ul = document.getElementById("myUL");
     var li = document.createElement("li");
-    li.innerHTML = `<span class="w3-badge w3-green">+</span> <a href="#">${actObj.name}</a>`;
+    li.innerHTML = `<button id="${actObj.id}" class="button" onclick="incrementCount(this)"><span class="count">+</span></button> <a href="#">${actObj.name}</a>`;
     li.style.display = "";
     ul.insertBefore(li, ul.firstChild);
+  }
+
+  function incrementCount(el){
+    //update UI
+    console.log("clicked")
+    var currentCount = el.firstChild.innerText;
+    var nextCount = 1;
+    if (currentCount != "+"){
+      nextCount = Number(currentCount) + 1;
+    } currentCount = "0";
+    el.firstChild.innerText = nextCount.toString();
+    //update data
+    var id = el.id;
+    console.log(id)
+    var activity = data[id]["dates"].unshift(id);
+    console.log(data[id]);
   }
 
   </script>
